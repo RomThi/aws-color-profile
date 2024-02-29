@@ -15,8 +15,10 @@
         "./static/js/content.js"
       ],
       "matches": [
-        "<all_urls>"
-      ]
+        "*://*.console.aws.amazon.com/*"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
     }
   ],
   "background": {
