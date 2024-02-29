@@ -1,0 +1,33 @@
+{
+  "short_name": "AWS Color",
+  "name": "AWS Color Profile",
+  "description": "Color tab according to profile",
+  "version": "0.1",
+  "manifest_version": 3,
+  "icons": {
+    "16": "logo192.png",
+    "48": "logo192.png",
+    "128": "logo192.png"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "./static/js/content.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "./static/js/background.js"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "logo192.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab"
+  ]
+}
