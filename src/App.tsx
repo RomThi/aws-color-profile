@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Chrome from "@uiw/react-color-chrome";
 import { ChromeMessage, Config, Sender } from "./type";
 import Input from "./components/Input";
 import EnvironementList from "./components/EnvironementList";
 import Button from "./components/Button";
+import { GithubPlacement } from "@uiw/react-color-github";
 
 function App() {
   const [environnement, setEnvironnement] = useState<string>("");
-  const [color, setColor] = useState<string>("");
-  const [config, setConfig] = useState<Config>({});
+  const [color, setColor] = useState<string>("#ffffff");
+  const [config, setConfig] = useState<Config>({ test: "#83aee6" });
+  const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
 
   async function getConfig() {
     const message: ChromeMessage = {
@@ -69,7 +72,20 @@ function App() {
             require={true}
             onChangeValue={setEnvironnement}
           />
-          <Input label="Color" require={true} onChangeValue={setColor} />
+          <Input
+            label="Color"
+            require={true}
+            onChangeValue={setColor}
+            value={color}
+            onClick={() => setDisplayColorPicker(!displayColorPicker)}
+          />
+          {displayColorPicker && (
+            <Chrome
+              placement={GithubPlacement.TopRight}
+              color={color}
+              onChange={(color) => setColor(color.hex)}
+            />
+          )}
         </div>
         <div className="py-2">
           <Button onClick={saveConfig}>Save</Button>
