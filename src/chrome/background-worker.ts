@@ -15,6 +15,16 @@ async function setConfig(config: Config): Promise<Boolean> {
     }
 }
 
+async function deleteConfig(key: string): Promise<void> {
+    try {
+        const currentConfig = await getConfig();
+        delete currentConfig[key];
+        await chrome.storage.local.set({ 'aws-color-config': currentConfig });
+    } catch (error) {
+        console.error(error)
+    }
+}
+
 function main() {
     console.log('[background-worker.ts] Main')
     /**
@@ -34,6 +44,13 @@ function main() {
             getConfig().then((config) => {
                 console.log('configFetch', config);
                 sendResponse(config);
+            });
+        }
+
+        if(message.type === 'DELETE_CONFIG') {
+            console.log('Delete config', message.data)
+            deleteConfig(message.data).then(() => {
+                sendResponse({ status: true });
             });
         }
         return true;

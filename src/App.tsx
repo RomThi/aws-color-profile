@@ -7,7 +7,7 @@ import Button from "./components/Button";
 function App() {
   const [environnement, setEnvironnement] = useState<string>("");
   const [color, setColor] = useState<string>("");
-  const [config, setConfig] = useState<Config>({});
+  const [config, setConfig] = useState<Config>({ config: "blue", test: "red" });
 
   async function getConfig() {
     const message: ChromeMessage = {
@@ -35,6 +35,22 @@ function App() {
     await getConfig();
   };
 
+  const deleteConfig = (key: string) => {
+    return async () => {
+      const message: ChromeMessage = {
+        from: Sender.React,
+        type: "DELETE_CONFIG",
+        data: key,
+      };
+      await chrome.runtime.sendMessage(message);
+      await getConfig();
+    };
+  };
+
+  const editConfig = (key: string) => {
+    return () => {};
+  };
+
   return (
     <div className="flex items-center min-h-screen flex-col justify-around">
       <div>
@@ -51,7 +67,11 @@ function App() {
           <Button onClick={saveConfig}>Save</Button>
         </div>
       </div>
-      <EnvironementList config={{ config: "blue", test: "red" }} />
+      <EnvironementList
+        config={config}
+        onDel={deleteConfig}
+        onEdit={editConfig}
+      />
     </div>
   );
 }
