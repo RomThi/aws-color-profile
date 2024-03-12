@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import { ChromeMessage, Config, Sender } from "./type";
 import Input from "./components/Input";
 import EnvironementList from "./components/EnvironementList";
+import Button from "./components/Button";
 
 function App() {
-  const [responseFromContent, setResponseFromContent] = useState<string>("");
-
   const [environnement, setEnvironnement] = useState<string>("");
   const [color, setColor] = useState<string>("");
   const [config, setConfig] = useState<Config>({});
@@ -38,27 +36,22 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Response from content:</p>
-        <p>{responseFromContent}</p>
+    <div className="flex items-center min-h-screen flex-col justify-around">
+      <div>
+        <h1 className="text-3xl font-bold">Configuration</h1>
         <div>
-          <div>
-            <Input
-              label="Environnement"
-              require={true}
-              onChangeValue={setEnvironnement}
-            />
-          </div>
-          <div>
-            <Input label="Color" require={true} onChangeValue={setColor} />
-          </div>
-          <div>
-            <button onClick={saveConfig}>Save</button>
-          </div>
-          <EnvironementList config={config} />
+          <Input
+            label="Environnement"
+            require={true}
+            onChangeValue={setEnvironnement}
+          />
+          <Input label="Color" require={true} onChangeValue={setColor} />
         </div>
-      </header>
+        <div className="py-2">
+          <Button onClick={saveConfig}>Save</Button>
+        </div>
+      </div>
+      <EnvironementList config={{ config: "blue", test: "red" }} />
     </div>
   );
 }

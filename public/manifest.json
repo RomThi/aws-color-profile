@@ -5,9 +5,9 @@
   "version": "0.1",
   "manifest_version": 3,
   "icons": {
-    "16": "logo192.png",
-    "48": "logo192.png",
-    "128": "logo192.png"
+    "16": "images/icon-16.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
   },
   "content_scripts": [
     {
@@ -26,7 +26,7 @@
   },
   "action": {
     "default_popup": "index.html",
-    "default_icon": "logo192.png"
+    "default_icon": "images/icon-128.png"
   },
   "permissions": [
     "storage",
