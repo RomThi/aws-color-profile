@@ -7,7 +7,7 @@ import Button from "./components/Button";
 function App() {
   const [environnement, setEnvironnement] = useState<string>("");
   const [color, setColor] = useState<string>("");
-  const [config, setConfig] = useState<Config>({ config: "blue", test: "red" });
+  const [config, setConfig] = useState<Config>({});
 
   async function getConfig() {
     const message: ChromeMessage = {
@@ -47,8 +47,16 @@ function App() {
     };
   };
 
-  const editConfig = (key: string) => {
-    return () => {};
+  const editConfig = async (key: string, color: string) => {
+    const config = { [key]: color };
+    const message: ChromeMessage = {
+      from: Sender.React,
+      type: "SAVE_CONFIG",
+      data: config,
+    };
+    const saveConfigStatus = await chrome.runtime.sendMessage(message);
+    console.log("saveConfigStatus", saveConfigStatus);
+    await getConfig();
   };
 
   return (
