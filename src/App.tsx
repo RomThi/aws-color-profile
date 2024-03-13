@@ -26,6 +26,7 @@ function App() {
 
   const saveConfig = async () => {
     console.log("Save config button clicked");
+    setDisplayColorPicker(false);
     const config = { [environnement]: color };
     const message: ChromeMessage = {
       from: Sender.React,
@@ -33,6 +34,8 @@ function App() {
       data: config,
     };
     const saveConfigStatus = await chrome.runtime.sendMessage(message);
+    setEnvironnement("");
+    setColor("#ffffff");
     console.log("saveConfigStatus", saveConfigStatus);
     await getConfig();
   };
@@ -68,6 +71,7 @@ function App() {
             label="Environnement"
             require={true}
             onChangeValue={setEnvironnement}
+            value={environnement}
           />
           <Input
             label="Color"
