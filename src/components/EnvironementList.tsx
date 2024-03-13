@@ -7,7 +7,7 @@ export default function EnvironementList({
   onEdit,
 }: {
   config: Config;
-  onDel: (key: string) => () => void;
+  onDel: (key: string) => Promise<void>;
   onEdit: (key: string, color: string) => Promise<void>;
 }) {
   if (Object.keys(config).length === 0) {

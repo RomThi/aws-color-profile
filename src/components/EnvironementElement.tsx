@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaCheck, FaRegPenToSquare, FaRegTrashCan } from "react-icons/fa6";
-import EditInput from "./EditInput";
+import ColorPicker from "./ColorPicker";
 
 type Props = {
   index: number;
@@ -32,11 +32,8 @@ export default function EnvironementElement({
   return (
     <div key={index} className="grid grid-cols-3 py-1">
       <div className="my-auto">{label}</div>
-      {edit ? (
-        <EditInput placeholder={color} onChange={setEditedColor} />
-      ) : (
-        <div className="w-5 h-5 m-auto" style={{ background: color }}></div>
-      )}
+      {edit && <ColorPicker color={editedColor} onChange={setEditedColor} />}
+      <div className="w-5 h-5 m-auto" style={{ background: color }}></div>
       <div className="grid grid-cols-2">
         <div className="m-auto">
           {edit ? (
@@ -46,7 +43,7 @@ export default function EnvironementElement({
           )}
         </div>
         <div className="m-auto">
-          {edit ? <></> : <FaRegTrashCan onClick={onDel(label)} />}
+          {edit ? <></> : <FaRegTrashCan onClick={() => onDel(label)} />}
         </div>
       </div>
     </div>
