@@ -8,7 +8,7 @@ import ColorPicker from "./components/ColorPicker";
 function App() {
   const [environnement, setEnvironnement] = useState<string>("");
   const [color, setColor] = useState<string>("#ffffff");
-  const [config, setConfig] = useState<Config>({ test: "#83aee6" });
+  const [config, setConfig] = useState<Config>({});
   const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
 
   async function getConfig() {
