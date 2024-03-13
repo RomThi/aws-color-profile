@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FaCheck, FaRegPenToSquare, FaRegTrashCan } from "react-icons/fa6";
-import Chrome from "@uiw/react-color-chrome";
-import { GithubPlacement } from "@uiw/react-color-github";
+import ColorPicker from "./ColorPicker";
 
 type Props = {
   index: number;
@@ -33,13 +32,7 @@ export default function EnvironementElement({
   return (
     <div key={index} className="grid grid-cols-3 py-1">
       <div className="my-auto">{label}</div>
-      {edit && (
-        <Chrome
-          placement={GithubPlacement.Left}
-          color={editedColor}
-          onChange={(color) => setEditedColor(color.hex)}
-        />
-      )}
+      {edit && <ColorPicker color={editedColor} onChange={setEditedColor} />}
       <div className="w-5 h-5 m-auto" style={{ background: color }}></div>
       <div className="grid grid-cols-2">
         <div className="m-auto">
@@ -50,7 +43,7 @@ export default function EnvironementElement({
           )}
         </div>
         <div className="m-auto">
-          {edit ? <></> : <FaRegTrashCan onClick={onDel(label)} />}
+          {edit ? <></> : <FaRegTrashCan onClick={() => onDel(label)} />}
         </div>
       </div>
     </div>

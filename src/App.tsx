@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import Chrome from "@uiw/react-color-chrome";
 import { ChromeMessage, Config, Sender } from "./type";
 import Input from "./components/Input";
 import EnvironementList from "./components/EnvironementList";
 import Button from "./components/Button";
-import { GithubPlacement } from "@uiw/react-color-github";
+import ColorPicker from "./components/ColorPicker";
 
 function App() {
   const [environnement, setEnvironnement] = useState<string>("");
@@ -38,16 +37,14 @@ function App() {
     await getConfig();
   };
 
-  const deleteConfig = (key: string) => {
-    return async () => {
-      const message: ChromeMessage = {
-        from: Sender.React,
-        type: "DELETE_CONFIG",
-        data: key,
-      };
-      await chrome.runtime.sendMessage(message);
-      await getConfig();
+  const deleteConfig = async (key: string) => {
+    const message: ChromeMessage = {
+      from: Sender.React,
+      type: "DELETE_CONFIG",
+      data: key,
     };
+    await chrome.runtime.sendMessage(message);
+    await getConfig();
   };
 
   const editConfig = async (key: string, color: string) => {
@@ -80,11 +77,7 @@ function App() {
             onClick={() => setDisplayColorPicker(!displayColorPicker)}
           />
           {displayColorPicker && (
-            <Chrome
-              placement={GithubPlacement.TopRight}
-              color={color}
-              onChange={(color) => setColor(color.hex)}
-            />
+            <ColorPicker color={color} onChange={setColor} />
           )}
         </div>
         <div className="py-2">
